@@ -47,6 +47,8 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
     /////////Retrofit Adapter Rxjava3
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+
 }
 
 
