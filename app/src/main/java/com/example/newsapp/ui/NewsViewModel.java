@@ -2,13 +2,12 @@ package com.example.newsapp.ui;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.newsapp.api.RetrofitBuilder;
 import com.example.newsapp.model.NewsApiResponse;
-
-import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
@@ -25,5 +24,10 @@ public class NewsViewModel extends ViewModel {
 
 
     }
+
+    public LiveData<NewsApiResponse> getItemsLiveData() {
+        return mutableLiveData;
+    }
+
 
 }
