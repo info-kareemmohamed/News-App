@@ -5,12 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context=".ui.MainActivity">
 
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/main_recyclerview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/black"
+        app:tabTextColor="#00BCD4"
+        app:tabSelectedTextColor="#A31A1A"
+        app:tabMode="scrollable"
+        app:tabGravity="fill"
+        android:layout_margin="@dimen/_10sdp"
+        app:tabIndicatorHeight="@dimen/_4sdp"
+        >
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="general"
+
 />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="business"
+
+            />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="entertainment"
+
+            />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="health"
+
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="science"
+
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sports"
+
+            />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="technology"
+
+            />
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+
+<FrameLayout
+    android:id="@+id/main_FrameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    />
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/main_bottomnavigation"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_40sdp"
+     app:menu="@menu/bottom_nav_menu"
+     app:labelVisibilityMode="unlabeled"
+    />
 </LinearLayout>

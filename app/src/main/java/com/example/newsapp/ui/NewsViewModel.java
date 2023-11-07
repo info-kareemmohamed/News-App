@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class NewsViewModel extends ViewModel {
-    MutableLiveData<NewsApiResponse> mutableLiveData=new MutableLiveData<>();
+   public MutableLiveData<NewsApiResponse> mutableLiveData=new MutableLiveData<>();
     private static final String TAG="NEWS";
 
 

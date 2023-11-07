@@ -1,20 +1,26 @@
 package com.example.newsapp.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import android.app.Activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.newsapp.R;
 import com.example.newsapp.databinding.ActivityMainBinding;
-import com.example.newsapp.model.NewsApiResponse;
-import com.example.newsapp.model.NewsHeadlines;
-import com.example.newsapp.recyclerview.RecyclerAdapter;
+import com.example.newsapp.fragments.HomeFragment;
+import com.example.newsapp.fragments.SettingsFragment;
+
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,48 +28,51 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private NewsViewModel viewModel;
-    private RecyclerAdapter adapter;
-    private List<NewsHeadlines> list = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
     private ActivityMainBinding binding;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        checkedDarkMode(sharedPreferences.getBoolean(SettingsFragment.NIGHTMODE, false));
         setContentView(binding.getRoot());
-        setupRecycler();
-        setupViewModel();
-        setupNewsDataObservation();
+        replaceFragment(new HomeFragment());
+        listenerNavigationItemSelected();
 
     }
 
-
-    private void setupViewModel() {
-        viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        viewModel.getNews("us", "health", null);
-    }
-
-    private void setupNewsDataObservation() {
-        viewModel.mutableLiveData.observe(this, new Observer<NewsApiResponse>() {
+    private void listenerNavigationItemSelected() {
+        binding.mainBottomnavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onChanged(NewsApiResponse newsApiResponse) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.menu_settings)
+                    replaceFragment(new SettingsFragment());
 
-                adapter.setList(newsApiResponse.getArticles());
+                else
+                    replaceFragment(new HomeFragment());
 
+                return true;
             }
         });
 
-    }
-
-    private void setupRecycler() {
-        adapter = new RecyclerAdapter(this, list);
-        binding.mainRecyclerview.setAdapter(adapter);
-        binding.mainRecyclerview.setLayoutManager(new GridLayoutManager(this, 2));
-        binding.mainRecyclerview.setHasFixedSize(true);
 
     }
 
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_FrameLayout, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void checkedDarkMode(boolean nightmode) {//check Dark Mode
+        if (nightmode)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    }
 }
