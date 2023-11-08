@@ -10,6 +10,7 @@
 
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabIndicatorColor="@color/black"
@@ -70,7 +71,8 @@
 
 
 
-<FrameLayout
+
+    <FrameLayout
     android:id="@+id/main_FrameLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

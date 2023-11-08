@@ -3,5 +3,11 @@
     <style name="Base.Theme.NewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/dark_icon_tint_color</item>
+        <item name="colorPrimaryDark">@color/dark_primary_dark_color</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+
     </style>
 </resources>

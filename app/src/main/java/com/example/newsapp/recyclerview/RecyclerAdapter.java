@@ -3,25 +3,31 @@ package com.example.newsapp.recyclerview;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
+
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.newsapp.R;
 import com.example.newsapp.model.NewsHeadlines;
+
+
 import java.util.List;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<ImageHolder> {
     private List<NewsHeadlines> list;
     private Context context;
+    private RecyclerListener listener;
 
 
-    public RecyclerAdapter(Context context, List<NewsHeadlines> list) {
+    public RecyclerAdapter(Context context, List<NewsHeadlines> list,RecyclerListener listener) {
         this.context = context;
         this.list = list;
+        this.listener=listener;
     }
 
 
@@ -36,10 +42,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ImageHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ImageHolder holder, int position) {
-       if (!list.get(position).getTitle().equals("[Removed]"))
-            holder.bind(list.get(position));
-        else
-            list.remove(position);
+        holder.bind(list.get(position));
+        holder.CardView_Recyclerview_Listener(listener);
     }
 
     @Override
@@ -55,5 +59,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ImageHolder> {
         this.list = list;
         notifyDataSetChanged();
     }
+
 
 }

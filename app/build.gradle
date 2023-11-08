@@ -57,9 +57,12 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
 
+    ////////Room
+    implementation "androidx.room:room-runtime:2.5.2"
+    annotationProcessor "androidx.room:room-compiler:2.5.2"
 
-
-
+///////////////Room with Rxjava
+    implementation "androidx.room:room-rxjava3:2.5.2"
 
 
 }

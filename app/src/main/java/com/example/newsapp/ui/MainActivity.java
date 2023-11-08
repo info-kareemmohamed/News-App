@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.newsapp.R;
 import com.example.newsapp.databinding.ActivityMainBinding;
@@ -21,6 +22,7 @@ import com.example.newsapp.fragments.HomeFragment;
 import com.example.newsapp.fragments.SettingsFragment;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +34,44 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Base_Theme_NewsApp);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         checkedDarkMode(sharedPreferences.getBoolean(SettingsFragment.NIGHTMODE, false));
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
         listenerNavigationItemSelected();
+        TabSelectedListener();
+
 
     }
+
+    private void TabSelectedListener() {
+        binding.mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+             replaceFragment(  HomeFragment.newInstance(tab.getText().toString(),""));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+    }
+
 
     private void listenerNavigationItemSelected() {
         binding.mainBottomnavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -50,10 +79,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.menu_settings)
                     replaceFragment(new SettingsFragment());
-
                 else
                     replaceFragment(new HomeFragment());
-
                 return true;
             }
         });

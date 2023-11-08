@@ -1,6 +1,21 @@
 package com.example.newsapp.model;
 
-public class NewsHeadlines {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import androidx.room.TypeConverters;
+
+import com.example.newsapp.databace.SourceConverter;
+
+@Entity
+@TypeConverters({SourceConverter.class})
+public class NewsHeadlines implements Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private Source source;
     private String author;
     private String title;
@@ -14,6 +29,25 @@ public class NewsHeadlines {
     public NewsHeadlines() {
     }
 
+    public NewsHeadlines(long id, Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
+        this.id = id;
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+        this.content = content;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public NewsHeadlines(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
         this.source = source;
@@ -25,6 +59,28 @@ public class NewsHeadlines {
         this.publishedAt = publishedAt;
         this.content = content;
     }
+
+    protected NewsHeadlines(Parcel in) {
+        author = in.readString();
+        title = in.readString();
+        description = in.readString();
+        url = in.readString();
+        urlToImage = in.readString();
+        publishedAt = in.readString();
+        content = in.readString();
+    }
+
+    public static final Creator<NewsHeadlines> CREATOR = new Creator<NewsHeadlines>() {
+        @Override
+        public NewsHeadlines createFromParcel(Parcel in) {
+            return new NewsHeadlines(in);
+        }
+
+        @Override
+        public NewsHeadlines[] newArray(int size) {
+            return new NewsHeadlines[size];
+        }
+    };
 
     public Source getSource() {
         return source;
@@ -88,5 +144,21 @@ public class NewsHeadlines {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(author);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(url);
+        dest.writeString(urlToImage);
+        dest.writeString(publishedAt);
+        dest.writeString(content);
     }
 }

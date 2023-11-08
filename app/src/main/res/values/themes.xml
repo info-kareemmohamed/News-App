@@ -3,7 +3,23 @@
     <style name="Base.Theme.NewsApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/dark_icon_tint_color</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">#FFFFFF</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+
+
     </style>
 
-    <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
+
+
+    <style name="SplashScreen" parent="Base.Theme.NewsApp">
+        <item name="android:windowBackground" >@drawable/splash </item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="background">@color/white</item>
+    </style>
+
 </resources>
