@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements RecyclerListener {
 
     // TODO: Rename and change types of parameters
     private String category = "general";
-    private String mParam2;
+    private String query;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements RecyclerListener {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             category = getArguments().getString(ARG_category);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            query = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment implements RecyclerListener {
 
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        viewModel.getNews("us", category, null);
+        viewModel.getNews("us", category, query);
     }
 
 

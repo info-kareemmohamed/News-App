@@ -6,8 +6,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="tabTextColor">#000000</color>
-    <color name="searchView_cardBackgroundColor">#FFFFFF</color>
+    <color name="tabTextColor">#FFFFFF</color>
+    <color name="searchView_cardBackgroundColor">#191818</color>
+
 
     <!--    // dark theme colors-->
     <color name="dark_primary_color">#141414</color>
@@ -15,8 +16,6 @@
     <color name="dark_bg_color">#141414</color>
     <color name="dark_text_color">#fafafa</color>
     <color name="dark_icon_tint_color">#A2A2A2</color>
-
-
 
 
 

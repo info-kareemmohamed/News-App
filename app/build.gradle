@@ -64,6 +64,9 @@ dependencies {
 ///////////////Room with Rxjava
     implementation "androidx.room:room-rxjava3:2.5.2"
 
+    //////////
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
 
 }
 

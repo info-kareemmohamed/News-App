@@ -3,9 +3,11 @@ package com.example.newsapp.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.app.Activity;
@@ -14,6 +16,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.newsapp.R;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private ActivityMainBinding binding;
 
-
+    private String category = "general";
 
 
     @Override
@@ -47,16 +50,50 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new HomeFragment());
         listenerNavigationItemSelected();
         TabSelectedListener();
+        SwiperefreshListener();
+        SearchviewOnQueryTextListener();
 
 
     }
+
+
+    private void SwiperefreshListener(){
+        binding.mainSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                replaceFragment(HomeFragment.newInstance(category, ""));
+                binding.mainSwiperefresh.setRefreshing(false);
+            }
+        });
+
+    }
+
+    private void SearchviewOnQueryTextListener(){
+        binding.mainSearchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                replaceFragment(HomeFragment.newInstance(category, newText ));
+                return true;
+            }
+        });
+
+    }
+
 
     private void TabSelectedListener() {
         binding.mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
-             replaceFragment(  HomeFragment.newInstance(tab.getText().toString(),""));
+                binding.mainSearchview.setQuery("",false);
+                binding.mainSearchview.clearFocus();
+                category = tab.getText().toString();
+                replaceFragment(HomeFragment.newInstance(category, ""));
             }
 
             @Override
@@ -77,10 +114,16 @@ public class MainActivity extends AppCompatActivity {
         binding.mainBottomnavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.menu_settings)
+                if (item.getItemId() == R.id.menu_settings) {
+                    binding.mainTab.setVisibility(View.GONE);
+                    binding.mainSearchview.setVisibility(View.GONE);
                     replaceFragment(new SettingsFragment());
-                else
+                }
+                 else {
+                    binding.mainTab.setVisibility(View.VISIBLE);
+                    binding.mainSearchview.setVisibility(View.VISIBLE);
                     replaceFragment(new HomeFragment());
+                }
                 return true;
             }
         });

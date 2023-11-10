@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_swiperefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
 
     tools:context=".ui.MainActivity">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/black"
-        app:tabTextColor="#00BCD4"
-        app:tabSelectedTextColor="#A31A1A"
+        app:tabIndicatorColor="#00BCD4"
+        app:tabTextColor="@color/tabTextColor"
+        app:tabSelectedTextColor="#00BCD4"
         app:tabMode="scrollable"
         app:tabGravity="fill"
         android:layout_margin="@dimen/_10sdp"
@@ -69,8 +76,26 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp"
+        app:cardElevation="@dimen/_10sdp"
+        android:layout_margin="@dimen/_13sdp"
+        app:cardBackgroundColor="@color/searchView_cardBackgroundColor"
 
 
+        >
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/main_searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_searchview"
+        app:iconifiedByDefault="false"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Title...." />
+    </androidx.cardview.widget.CardView>
 
     <FrameLayout
     android:id="@+id/main_FrameLayout"
@@ -87,3 +112,4 @@
      app:labelVisibilityMode="unlabeled"
     />
 </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
