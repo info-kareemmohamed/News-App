@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -38,16 +39,18 @@ public class MainActivity extends AppCompatActivity {
 
     private String category = "general";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Base_Theme_NewsApp);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         checkedDarkMode(sharedPreferences.getBoolean(SettingsFragment.NIGHTMODE, false));
-        setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+
+        checkConfigurationChanges(savedInstanceState);
+
         listenerNavigationItemSelected();
         TabSelectedListener();
         SwiperefreshListener();
@@ -56,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private void checkConfigurationChanges(Bundle savedInstanceState) {//check Configuration Changes
+        if (savedInstanceState == null) {
+            replaceFragment(new HomeFragment());
+
+        }
+    }
 
     private void SwiperefreshListener(){
         binding.mainSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -145,4 +155,36 @@ public class MainActivity extends AppCompatActivity {
         else
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+
+
+        super.onSaveInstanceState(outState);
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_FrameLayout);
+
+        if (currentFragment != null) {
+
+            getSupportFragmentManager().putFragment(outState, "lastFragment", currentFragment);
+        }
+
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+
+        super.onRestoreInstanceState(savedInstanceState);
+
+        Fragment lastFragment = getSupportFragmentManager().getFragment(savedInstanceState, "lastFragment");
+
+
+        if (lastFragment != null && lastFragment instanceof SettingsFragment) {
+            binding.mainTab.setVisibility(View.GONE);
+            binding.mainSearchview.setVisibility(View.GONE);
+            replaceFragment(new SettingsFragment());
+        }
+
+    }
+
+
 }

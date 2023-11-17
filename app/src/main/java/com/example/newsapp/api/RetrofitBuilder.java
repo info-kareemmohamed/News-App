@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
 private  final String BASE_URL="https://newsapi.org/v2/";
-private  final String API_KEY="c70f2fc7f39144b880948cd1bb2792e6";
+private  final String API_KEY="b07087937ac648e7bc36768e04dc7152";
 
 private  NewsApi newsApi;
 private static  RetrofitBuilder Instance;
@@ -30,6 +30,7 @@ public static RetrofitBuilder getInstance(){
     }
 return Instance;
 }
+
 
 public Single<NewsApiResponse> getNews(String country ,  String category,String query){
     return newsApi.callHeadlines(country,category,query,API_KEY);

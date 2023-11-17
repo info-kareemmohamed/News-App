@@ -16,6 +16,7 @@
     android:orientation="vertical"
     >
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_tab"
         android:layout_width="match_parent"
@@ -110,6 +111,8 @@
     android:layout_height="@dimen/_40sdp"
      app:menu="@menu/bottom_nav_menu"
      app:labelVisibilityMode="unlabeled"
+
     />
 </LinearLayout>
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
