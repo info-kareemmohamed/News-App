@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.webkit.WebSettings;
 import com.example.newsapp.R;
 import com.example.newsapp.databinding.ActivityScreenNewspaperBinding;
 import com.example.newsapp.model.NewsHeadlines;
+import com.squareup.picasso.Picasso;
 
 public class ScreenNewspaper extends AppCompatActivity {
 
@@ -29,10 +31,11 @@ public class ScreenNewspaper extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
-        getDataFormIntent_and_setupWebview();
+        getDataFormIntent();
+        setDatainText();
 
         checkFavorite();
-
+      clickURL();
         clickListenerFloatingactionbutton();
     }
 
@@ -57,18 +60,35 @@ public class ScreenNewspaper extends AppCompatActivity {
     }
 
 
-    private void getDataFormIntent_and_setupWebview() {
+    private void getDataFormIntent() {
         Intent intent = getIntent();
-
         newsHeadlines = intent.getParcelableExtra("news");
-        binding.webview.loadUrl(newsHeadlines.getUrl());
-
-
-        WebSettings webSettings = binding.webview.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        Picasso.get().load(newsHeadlines.getUrlToImage()).into(binding.ScreenNewspaperImageView);
 
     }
+private void setDatainText(){
+    binding.ScreenNewspaperTitle.setText(newsHeadlines.getTitle());
+    binding.ScreenNewspaperDescription.setText(newsHeadlines.getDescription());
+    binding.ScreenNewspaperAuthor.setText(newsHeadlines.getAuthor());
+    binding.ScreenNewspaperSource.setText(newsHeadlines.getSource().getName());
+    binding.ScreenNewspaperContent.setText(newsHeadlines.getContent());
+    binding.ScreenNewspaperPublishedAt.setText(newsHeadlines.getPublishedAt());
+    binding.ScreenNewspaperUrl.setText(newsHeadlines.getUrl());
 
+}
+private void clickURL(){
+        binding.ScreenNewspaperUrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToURL(newsHeadlines.getUrl());
+            }
+        });
+
+}
+    private void goToURL(String s){
+        Uri uri=Uri.parse(s);
+        startActivity(new Intent(Intent.ACTION_VIEW,uri));
+    }
 
     private void clickListenerFloatingactionbutton() {
         binding.floatingactionbutton.setOnClickListener(new View.OnClickListener() {
