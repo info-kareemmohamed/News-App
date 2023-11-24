@@ -3,9 +3,9 @@ package com.example.newsapp.model;
 import java.util.List;
 
 public class NewsApiResponse {
-private String status;
-private int totalResults;
-private List<NewsHeadlines> articles;
+    private String status;
+    private int totalResults;
+    private List<NewsHeadlines> articles;
 
 
     public NewsApiResponse() {

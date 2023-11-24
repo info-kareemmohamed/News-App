@@ -24,12 +24,13 @@ public class NewsHeadlines implements Parcelable {
     private String urlToImage;
     private String publishedAt;
     private String content;
+    private boolean favorite;
 
 
     public NewsHeadlines() {
     }
 
-    public NewsHeadlines(long id, Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
+    public NewsHeadlines(long id, Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content, boolean favorite) {
         this.id = id;
         this.source = source;
         this.author = author;
@@ -39,17 +40,10 @@ public class NewsHeadlines implements Parcelable {
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
         this.content = content;
+        this.favorite = favorite;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public NewsHeadlines(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
+    public NewsHeadlines(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content, boolean favorite) {
         this.source = source;
         this.author = author;
         this.title = title;
@@ -58,9 +52,13 @@ public class NewsHeadlines implements Parcelable {
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
         this.content = content;
+        this.favorite = favorite;
     }
+
 
     protected NewsHeadlines(Parcel in) {
+        id = in.readLong();
+        source = in.readParcelable(Source.class.getClassLoader());
         author = in.readString();
         title = in.readString();
         description = in.readString();
@@ -68,6 +66,7 @@ public class NewsHeadlines implements Parcelable {
         urlToImage = in.readString();
         publishedAt = in.readString();
         content = in.readString();
+        favorite = in.readByte() != 0;
     }
 
     public static final Creator<NewsHeadlines> CREATOR = new Creator<NewsHeadlines>() {
@@ -81,6 +80,14 @@ public class NewsHeadlines implements Parcelable {
             return new NewsHeadlines[size];
         }
     };
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Source getSource() {
         return source;
@@ -146,6 +153,14 @@ public class NewsHeadlines implements Parcelable {
         this.content = content;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -153,6 +168,8 @@ public class NewsHeadlines implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeParcelable(source, flags);
         dest.writeString(author);
         dest.writeString(title);
         dest.writeString(description);
@@ -160,5 +177,6 @@ public class NewsHeadlines implements Parcelable {
         dest.writeString(urlToImage);
         dest.writeString(publishedAt);
         dest.writeString(content);
+        dest.writeByte((byte) (favorite ? 1 : 0));
     }
 }

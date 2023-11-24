@@ -4,19 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.newsapp.R;
+
 import com.example.newsapp.databinding.FragmentHomeBinding;
 import com.example.newsapp.model.NewsApiResponse;
 import com.example.newsapp.model.NewsHeadlines;
@@ -40,12 +40,10 @@ public class HomeFragment extends Fragment implements RecyclerListener {
 
     private List<NewsHeadlines> list = new ArrayList<>();
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_category = "general";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String category = "general";
     private String query;
 
@@ -54,7 +52,6 @@ public class HomeFragment extends Fragment implements RecyclerListener {
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String category, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -102,7 +99,7 @@ public class HomeFragment extends Fragment implements RecyclerListener {
 
 
     private void setupNewsDataObservation() {
-        viewModel.mutableLiveData.observe(this, new Observer<NewsApiResponse>() {
+        viewModel.mutableLiveData.observe(getActivity(), new Observer<NewsApiResponse>() {
             @Override
             public void onChanged(NewsApiResponse newsApiResponse) {
 
@@ -117,6 +114,7 @@ public class HomeFragment extends Fragment implements RecyclerListener {
     public void ClickListener(View view, NewsHeadlines newsHeadlines) {
         intent = new Intent(getContext(), ScreenNewspaper.class);
         intent.putExtra("news", newsHeadlines);
+
         startActivity(intent);
     }
 }

@@ -6,14 +6,28 @@ import com.example.newsapp.model.Source;
 
 public class SourceConverter {
     @TypeConverter
-    public static Source getSource(String name) {
+    public static Source fromString(String value) {
+        if (value == null) {
+            return null;
+        }
 
-        return name != null ? new Source(name, name) : null;
+        String[] parts = value.split(",");
+        if (parts.length == 2) {
+            return new Source(parts[0], parts[1]);
+        }
+
+        return null;
     }
 
     @TypeConverter
-    public static String FormSource(Source source) {
+    public static String toString(Source source) {
+        if (source == null) {
+            return null;
+        }
 
-        return source.getName();
+        return source.getId() + "," + source.getName();
     }
+
+
 }
+

@@ -22,14 +22,12 @@ import android.widget.Toast;
 
 import com.example.newsapp.R;
 import com.example.newsapp.databinding.ActivityMainBinding;
+import com.example.newsapp.fragments.FavoriteFragment;
 import com.example.newsapp.fragments.HomeFragment;
 import com.example.newsapp.fragments.SettingsFragment;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -67,18 +65,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void SwiperefreshListener(){
+    private void SwiperefreshListener() {
         binding.mainSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                replaceFragment(HomeFragment.newInstance(category, ""));
+                if (getSupportFragmentManager().findFragmentById(R.id.main_FrameLayout) instanceof HomeFragment) {
+                    replaceFragment(HomeFragment.newInstance(category, ""));
+                } else {
+
+                    replaceFragment(new FavoriteFragment());
+                }
                 binding.mainSwiperefresh.setRefreshing(false);
             }
         });
 
     }
 
-    private void SearchviewOnQueryTextListener(){
+    private void SearchviewOnQueryTextListener() {
         binding.mainSearchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                replaceFragment(HomeFragment.newInstance(category, newText ));
+                replaceFragment(HomeFragment.newInstance(category, newText));
                 return true;
             }
         });
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         binding.mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                binding.mainSearchview.setQuery("",false);
+                binding.mainSearchview.setQuery("", false);
                 binding.mainSearchview.clearFocus();
                 category = tab.getText().toString();
                 replaceFragment(HomeFragment.newInstance(category, ""));
@@ -124,15 +127,22 @@ public class MainActivity extends AppCompatActivity {
         binding.mainBottomnavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 if (item.getItemId() == R.id.menu_settings) {
+                    binding.mainSwiperefresh.setEnabled(false);
                     binding.mainTab.setVisibility(View.GONE);
                     binding.mainSearchview.setVisibility(View.GONE);
                     replaceFragment(new SettingsFragment());
-                }
-                 else {
+                } else if (item.getItemId() == R.id.menu_home) {
+                    binding.mainSwiperefresh.setEnabled(true);
                     binding.mainTab.setVisibility(View.VISIBLE);
                     binding.mainSearchview.setVisibility(View.VISIBLE);
                     replaceFragment(new HomeFragment());
+                } else {
+                    binding.mainSwiperefresh.setEnabled(true);
+                    binding.mainTab.setVisibility(View.GONE);
+                    binding.mainSearchview.setVisibility(View.GONE);
+                    replaceFragment(new FavoriteFragment());
                 }
                 return true;
             }
@@ -155,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         else
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
 

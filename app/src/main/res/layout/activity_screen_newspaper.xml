@@ -11,10 +11,10 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/floatingactionbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_favorite_w_24"
+        android:src="@drawable/ic_favorite_24"
         app:backgroundTint="@color/white"
         app:fabSize="normal"
         android:layout_marginBottom="@dimen/_65sdp"

@@ -3,14 +3,14 @@ package com.example.newsapp.recyclerview;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
+import android.view.ViewGroup;
 
 
 import androidx.annotation.NonNull;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.newsapp.R;
 import com.example.newsapp.model.NewsHeadlines;
 
@@ -24,19 +24,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ImageHolder> {
     private RecyclerListener listener;
 
 
-    public RecyclerAdapter(Context context, List<NewsHeadlines> list,RecyclerListener listener) {
+    public RecyclerAdapter(Context context, List<NewsHeadlines> list, RecyclerListener listener) {
         this.context = context;
         this.list = list;
-        this.listener=listener;
+        this.listener = listener;
     }
-
 
 
     @NonNull
     @Override
     public ImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            return new ImageHolder(LayoutInflater.from(context).inflate(R.layout.carditemimage, parent, false));
+        return new ImageHolder(LayoutInflater.from(context).inflate(R.layout.carditemimage, parent, false));
 
     }
 
@@ -53,6 +52,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ImageHolder> {
 
     public List<NewsHeadlines> getList() {
         return list;
+    }
+
+    public NewsHeadlines getNewsPosition(int position) {
+        return list.get(position);
     }
 
     public void setList(List<NewsHeadlines> list) {
