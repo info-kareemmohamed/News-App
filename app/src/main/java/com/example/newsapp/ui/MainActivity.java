@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         checkedDarkMode(sharedPreferences.getBoolean(SettingsFragment.NIGHTMODE, false));
 
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new SettingsFragment());
                 } else if (item.getItemId() == R.id.menu_home) {
                     binding.mainSwiperefresh.setEnabled(true);
+                    binding.mainTab.setScrollPosition(0, 0f, true);
                     binding.mainTab.setVisibility(View.VISIBLE);
                     binding.mainSearchview.setVisibility(View.VISIBLE);
                     replaceFragment(new HomeFragment());

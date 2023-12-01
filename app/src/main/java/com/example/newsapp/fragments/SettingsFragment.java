@@ -21,16 +21,15 @@ public class SettingsFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-
     public static final String NIGHTMODE = "nightmode";
     private boolean nightmode;
 
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-
     private String mParam1;
     private String mParam2;
+
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -55,6 +54,7 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,9 +63,7 @@ public class SettingsFragment extends Fragment {
 
 
         sharedPreferences = getActivity().getSharedPreferences("MODE", Context.MODE_PRIVATE);
-
         nightmode = sharedPreferences.getBoolean(NIGHTMODE, false);
-
         checkedModetoSelectedOnSwitchcompat();
 
         OnClickListenerModeOnSwitchcompat();

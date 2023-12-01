@@ -17,12 +17,10 @@ import android.view.ViewGroup;
 
 import com.example.newsapp.R;
 import com.example.newsapp.databinding.FragmentFavoriteBinding;
-
 import com.example.newsapp.model.NewsHeadlines;
 import com.example.newsapp.recyclerview.RecyclerAdapter;
 import com.example.newsapp.recyclerview.RecyclerListener;
 import com.example.newsapp.ui.FavoriteViewModel;
-
 import com.example.newsapp.ui.ScreenNewspaper;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -33,13 +31,11 @@ import java.util.List;
 public class FavoriteFragment extends Fragment implements RecyclerListener {
 
     private FragmentFavoriteBinding binding;
-
     private FavoriteViewModel viewModel;
-
     private Intent intent;
     private RecyclerAdapter adapter;
-
     private List<NewsHeadlines> favoritelist = new ArrayList<>();
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -101,6 +97,11 @@ public class FavoriteFragment extends Fragment implements RecyclerListener {
         viewModel.get_all_news().observe(getActivity(), new Observer<List<NewsHeadlines>>() {
             @Override
             public void onChanged(List<NewsHeadlines> list) {
+                if (list.size() > 0) {
+                    binding.lottieAnimationView.setVisibility(View.GONE);
+                } else {
+                    binding.lottieAnimationView.setVisibility(View.VISIBLE);
+                }
                 adapter.setList(list);
                 favoritelist = list;
 

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebSettings;
 
 import com.example.newsapp.R;
 import com.example.newsapp.databinding.ActivityScreenNewspaperBinding;
@@ -35,7 +34,7 @@ public class ScreenNewspaper extends AppCompatActivity {
         setDatainText();
 
         checkFavorite();
-      clickURL();
+        clickURL();
         clickListenerFloatingactionbutton();
     }
 
@@ -43,7 +42,7 @@ public class ScreenNewspaper extends AppCompatActivity {
     private void checkFavorite() {
         viewModel.checkIfUrlExists(newsHeadlines.getUrl());
         viewModel.getIsUrlExistsLiveData().observe(this, isExists -> {
-
+            newsHeadlines.setFavorite(isExists);
             checkFavoriteToImage(isExists);
             Favorite = isExists;
         });
@@ -66,17 +65,19 @@ public class ScreenNewspaper extends AppCompatActivity {
         Picasso.get().load(newsHeadlines.getUrlToImage()).into(binding.ScreenNewspaperImageView);
 
     }
-private void setDatainText(){
-    binding.ScreenNewspaperTitle.setText(newsHeadlines.getTitle());
-    binding.ScreenNewspaperDescription.setText(newsHeadlines.getDescription());
-    binding.ScreenNewspaperAuthor.setText(newsHeadlines.getAuthor());
-    binding.ScreenNewspaperSource.setText(newsHeadlines.getSource().getName());
-    binding.ScreenNewspaperContent.setText(newsHeadlines.getContent());
-    binding.ScreenNewspaperPublishedAt.setText(newsHeadlines.getPublishedAt());
-    binding.ScreenNewspaperUrl.setText(newsHeadlines.getUrl());
 
-}
-private void clickURL(){
+    private void setDatainText() {
+        binding.ScreenNewspaperTitle.setText(newsHeadlines.getTitle());
+        binding.ScreenNewspaperDescription.setText(newsHeadlines.getDescription());
+        binding.ScreenNewspaperAuthor.setText(newsHeadlines.getAuthor());
+        binding.ScreenNewspaperSource.setText(newsHeadlines.getSource().getName());
+        binding.ScreenNewspaperContent.setText(newsHeadlines.getContent());
+        binding.ScreenNewspaperPublishedAt.setText(newsHeadlines.getPublishedAt());
+        binding.ScreenNewspaperUrl.setText(newsHeadlines.getUrl());
+
+    }
+
+    private void clickURL() {
         binding.ScreenNewspaperUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,10 +85,11 @@ private void clickURL(){
             }
         });
 
-}
-    private void goToURL(String s){
-        Uri uri=Uri.parse(s);
-        startActivity(new Intent(Intent.ACTION_VIEW,uri));
+    }
+
+    private void goToURL(String s) {
+        Uri uri = Uri.parse(s);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     private void clickListenerFloatingactionbutton() {
@@ -112,9 +114,10 @@ private void clickURL(){
     public void onBackPressed() {
 
         if (Favorite) {
-
-            newsHeadlines.setFavorite(true);
-            viewModel.add_news(newsHeadlines);
+            if (!newsHeadlines.isFavorite()) {
+                newsHeadlines.setFavorite(true);
+                viewModel.add_news(newsHeadlines);
+            }
         } else {
 
             viewModel.delete_news(newsHeadlines.getUrl());

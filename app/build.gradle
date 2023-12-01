@@ -68,6 +68,10 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
 
 
+    ////////////Lottie Files
+    implementation "com.airbnb.android:lottie:6.2.0"
+
+
 }
 
 

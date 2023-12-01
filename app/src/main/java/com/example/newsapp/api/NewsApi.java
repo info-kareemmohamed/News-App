@@ -10,6 +10,6 @@ import retrofit2.http.Query;
 
 public interface NewsApi {
     @GET("top-headlines")
-    public Single<NewsApiResponse> callHeadlines(@Query("country") String country , @Query("category") String category,
-                                                 @Query("q") String query , @Query("apiKey") String api_key);
+    public Single<NewsApiResponse> callHeadlines(@Query("country") String country, @Query("category") String category,
+                                                 @Query("q") String query, @Query("apiKey") String api_key);
 }

@@ -7,4 +7,5 @@
     <string name="swipeSnackbarRecovery">Recovery</string>
     <string name="swipeSnackbarDelete">Delete</string>
     <string name="swipeSnackbarUndo">Undo</string>
+    <string name="main_SearchViewqueryHint">Title....</string>
 </resources>

@@ -11,18 +11,19 @@ import com.example.newsapp.Dao.NewsDao;
 import com.example.newsapp.model.NewsHeadlines;
 
 @Database(entities = {NewsHeadlines.class}, version = 1)
-    public abstract class Databace extends RoomDatabase {
-        public abstract NewsDao dao();
+public abstract class Databace extends RoomDatabase {
+    public abstract NewsDao dao();
 
-        private static volatile Databace Instance;
-        public static synchronized Databace getInstance(Context context) {
-            if (Instance == null) {
-                Instance = Room.databaseBuilder(context.getApplicationContext(), Databace.class, "NewsApp").fallbackToDestructiveMigration().build();
-            }
+    private static volatile Databace Instance;
 
-            return Instance;
+    public static synchronized Databace getInstance(Context context) {
+        if (Instance == null) {
+            Instance = Room.databaseBuilder(context.getApplicationContext(), Databace.class, "NewsApp").fallbackToDestructiveMigration().build();
         }
 
-
+        return Instance;
     }
+
+
+}
 

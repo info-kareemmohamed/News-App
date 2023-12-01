@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-
 import com.example.newsapp.model.NewsHeadlines;
 import com.example.newsapp.repository.News_Repository;
 

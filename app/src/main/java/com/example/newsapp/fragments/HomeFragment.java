@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.newsapp.R;
-
 import com.example.newsapp.databinding.FragmentHomeBinding;
 import com.example.newsapp.model.NewsApiResponse;
 import com.example.newsapp.model.NewsHeadlines;
@@ -32,12 +31,9 @@ import java.util.List;
 public class HomeFragment extends Fragment implements RecyclerListener {
 
     private FragmentHomeBinding binding;
-
     private NewsViewModel viewModel;
-
     private Intent intent;
     private RecyclerAdapter adapter;
-
     private List<NewsHeadlines> list = new ArrayList<>();
 
 

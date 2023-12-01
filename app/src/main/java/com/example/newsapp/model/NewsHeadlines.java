@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 import androidx.room.TypeConverters;
 
 import com.example.newsapp.databace.SourceConverter;

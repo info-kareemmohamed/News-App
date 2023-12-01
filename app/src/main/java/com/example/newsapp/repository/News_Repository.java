@@ -4,14 +4,11 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-
 import com.example.newsapp.Dao.NewsDao;
 import com.example.newsapp.databace.Databace;
-
 import com.example.newsapp.model.NewsHeadlines;
 
 import java.util.List;
-
 
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
